@@ -1,21 +1,41 @@
-<packaging>war</packaging>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>myapp</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
 
-<dependencies>
-    <!-- Add Servlet API if needed -->
-    <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>4.0.1</version>
-        <scope>provided</scope>
-    </dependency>
-</dependencies>
-
-<build>
+  <build>
+    <finalName>myapp</finalName>
     <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.3.2</version>
-        </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration>
+          <!-- Point to your web resources in root -->
+          <warSourceDirectory>${project.basedir}</warSourceDirectory>
+          
+          <!-- Include only specific files -->
+          <includes>
+            <include>*.html</include>
+            <include>*.jsp</include>
+            <include>*.css</include>
+            <include>*.js</include>
+          </includes>
+          
+          <!-- Manually create WEB-INF in target -->
+          <webResources>
+            <resource>
+              <directory>${project.basedir}</directory>
+              <targetPath>WEB-INF</targetPath>
+              <includes>
+                <include>web.xml</include>
+              </includes>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
     </plugins>
-</build>
+  </build>
+</project>
